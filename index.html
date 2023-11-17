@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+<div style="">
+
+<!--=================STATUS===================-->    
+
+<div style="display: block; width: 30%;">
+
+<h2>dinheiros:</h2>    
+<h3 id="displei">0</h3>
+
+por segundo:
+<p id="porSegundo">0</p>
+
+<button onclick="trabaia()">trabaia</button>
+
+</div>
+
+<br>
+<br>
+<br>
+
+
+<!--=================LOJA==================-->
+
+<div style="display: block;  width: 30%;">
+
+
+loja! <br> <br>
+
+ovelha custa: <div id="ovelhaCusta">20</div>
+<button onclick="compraovelha()" style="display: none;" id="compraovelha">comprar ovelha (custa 20)</button>
+
+<p></p>
+
+</div>
+</div>
+
+<script>
+
+let total =0;
+let producaoovelha =1;
+let quantidadeovelha = 0;
+let precoovelha = 20;
+
+
+
+
+
+
+function compraovelha(){
+    if(total>=precoovelha){
+    total = total - precoovelha;
+    quantidadeovelha = quantidadeovelha+1;
+    precoovelha = precoovelha*1.5;
+    }
+}
+
+function trabaia(){
+    total = total +1;
+    document.getElementById("displei").innerHTML = String(parseInt(total));
+}
+
+//=====================por segundo===================
+
+setInterval(porSegundo, 1000);
+function porSegundo(){
+total = total + producaoovelha*quantidadeovelha;
+
+  
+
+//==================por menos segundo=====================
+
+setInterval(porMenos,100);
+function porMenos(){
+    if(total>=precoovelha){
+        document.getElementById("compraovelha").style.display = "block";
+    }
+    if(total<=precoovelha){
+        document.getElementById("compraovelha").style.display = "none";
+    }
+
+
+document.getElementById("displei").innerHTML = String(parseInt(total));
+document.getElementById("porSegundo").innerHTML = String(parseInt(producaoovelha*quantidadeovelha))
+document.getElementById("ovelhaCusta").innerHTML = String(parseInt(precoovelha));
+}
+
+
+
+}
+
+
+
+
+</script>
+
+
+</body>
+</html>
