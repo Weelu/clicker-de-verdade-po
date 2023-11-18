@@ -7,7 +7,7 @@
 </head>
 <body>
 
-<div style="padding: 20px; height:200px;">
+<div style="padding: 20px; height:400px;">
 
 
 <!--=================STATUS===================-->    
@@ -39,13 +39,21 @@ por segundo:
     coisas que produzem: <br> <br>
 
 ovelha custa: <div id="ovelhaCusta">20</div>
-<button onclick="compraovelha()" style="display: none;" id="compraovelha">comprar ovelha</button>
+<button onclick="compraovelha()" style="display: none;" id="compraovelha">comprar ovelha</button><br>
+
+galinha custa: <div id="galinhacusta">100</div>
+<button onclick="compragalinha()" style="display: none; " id="compragalinha">comprar galinha</button>
+
 </div>
 
 <div style="width: 40%; float: left; background-color: rgb(221, 207, 188); margin-left: 5%; margin-right: 5%;">
 
     melhorias: <br><br>
 
+   <div id="comprasombreiro" style="display: none;"> 
+   sombreiro custa 250
+   <button onclick="comprarsombreiro() ">comprar sobreiro</button>  
+   </div>
 
 </div>
 
@@ -72,14 +80,36 @@ ovelha custa: <div id="ovelhaCusta">20</div>
 <script>
 
 let total =0;
+let forcadetrabalho = 1;
 let producaoovelha =1;
 let quantidadeovelha = 0;
 let precoovelha = 20;
+let precogalinha = 100;
+let quantidadegalinha = 0;
+let producaogalinha = 5;
+let precosombreiro = 250;
+let temsombreiro = false;
 
 
 
+function comprarsombreiro(){
+    if(total>=precosombreiro){
+        total = total - precosombreiro;
+        forcadetrabalho = 3;
+        temsombreiro = true;
+    }
+
+}
 
 
+function compragalinha(){
+    if(total>=precogalinha){
+        total = total - precogalinha;
+        quantidadegalinha = quantidadegalinha+1;
+        precogalinha = precogalinha*1.5;
+    }
+
+}
 
 function compraovelha(){
     if(total>=precoovelha){
@@ -90,7 +120,7 @@ function compraovelha(){
 }
 
 function trabaia(){
-    total = total +1;
+    total = total +forcadetrabalho;
     document.getElementById("displei").innerHTML = String(parseInt(total));
 }
 
@@ -98,7 +128,7 @@ function trabaia(){
 
 setInterval(porSegundo, 1000);
 function porSegundo(){
-total = total + producaoovelha*quantidadeovelha;
+total = total + producaoovelha*quantidadeovelha + producaogalinha*quantidadegalinha;
 
   
 
@@ -114,9 +144,26 @@ function porMenos(){
     }
 
 
+    if(total>=precogalinha){
+        document.getElementById("compragalinha").style.display = "block";
+    }
+    if(total<=precogalinha){
+        document.getElementById("compragalinha").style.display = "none";
+    }
+
+
+    if((total>=precosombreiro) && temsombreiro == false ){
+        document.getElementById("comprasombreiro").style.display = "block";
+    }
+
+    if((total<=precosombreiro) || temsombreiro == true ){
+        document.getElementById("comprasombreiro").style.display = "none";
+    }
+
 document.getElementById("displei").innerHTML = String(parseInt(total));
-document.getElementById("porSegundo").innerHTML = String(parseInt(producaoovelha*quantidadeovelha))
+document.getElementById("porSegundo").innerHTML = String(parseInt(producaoovelha*quantidadeovelha + producaogalinha*quantidadegalinha));
 document.getElementById("ovelhaCusta").innerHTML = String(parseInt(precoovelha));
+document.getElementById("galinhacusta").innerHTML = String(parseInt(precogalinha));
 }
 
 
